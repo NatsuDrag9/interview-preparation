@@ -1,2 +1,2 @@
-# interview-preparation
+# Interview Preparation
 Full stack interview preparation
