@@ -52,4 +52,15 @@ To fetch information of a single resource (say book), the url is:
 
 - No spaces
 - No underscores
--
+- Slug of url is in small case; Any space is replaced with hyphen
+
+
+### Idempotency
+
+The property of certain operations in which performing the same action multiple times has the same effect as performing it once.
+
+In this context, it doesn't matter how many times the client performs a particular request, the outcome in the server environment is (should be) the same. Idempotent means that what side-effect can be caused in the server, and whether it remains the same during server environment
+
+For eg: 
+- GET, PUT, DELETE requests are idempotent
+- POST requests are not idempotent
