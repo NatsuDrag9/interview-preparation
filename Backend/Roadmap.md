@@ -13,7 +13,7 @@
 9. Request context
 10. [Handlers, Controllers and Services](./Chapters/Backend_Layers.md)
 11. CRUD deepdive
-12. RESTful architecture and best practices
+12. [RESTful Architecture and Best Practices](./Chapters/Rest_API_Design.md)
 13. Databases
 14. Business logic layer (BLL)
 15. Caching
@@ -35,13 +35,13 @@
 31. Webhooks
 32. DevOps for backend engineers
 
-
 ### Roadmap And Backend Introduction
 
 This file contains the entire story of backend development answering two primary questions - _the what
 and why of each topic_
 
-The main idea is to provide a strong foundation on backend development so that the reader can 
+The main idea is to provide a strong foundation on backend development so that the reader can
+
 - build robust, scalable and maintainable backend systems
 - face backend interviews with confidence
 
@@ -49,8 +49,5 @@ The main idea is to provide a strong foundation on backend development so that t
 
 - Repository Layer - contains database to store data
 - Service Layer - contains business logic. Calls a few repository methods and communicates with client via apis, webhooks, etc
-- Controllers - contains HTTP related stuff (error codes, data format, etc). Executes the business logic by calling appropriate API methods defined in service layer which is then returned to the user in form of HTTP responses. Similarly, it accpets any data from the user and passes it forward to the appropriate service layer methods. 
+- Controllers - contains HTTP related stuff (error codes, data format, etc). Executes the business logic by calling appropriate API methods defined in service layer which is then returned to the user in form of HTTP responses. Similarly, it accpets any data from the user and passes it forward to the appropriate service layer methods.
 - Route layer - contains route matching algorithm to match the route of the API request
-
-
-
