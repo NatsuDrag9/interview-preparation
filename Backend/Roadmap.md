@@ -16,10 +16,10 @@
 12. [RESTful Architecture and Best Practices](./Chapters/Rest_API_Design.md)
 13. Databases
 14. Business logic layer (BLL)
-15. Caching
+15. [Caching](./Chapters/Caching.md)
 16. Transactional emails
 17. Task queuing and scheduling
-18. Elasticsearch
+18. Elastic Search
 19. Error handling
 20. Config management
 21. Logging, monitoring and observability
