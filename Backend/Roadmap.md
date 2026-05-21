@@ -18,7 +18,7 @@
 14. Business logic layer (BLL)
 15. [Caching](./Chapters/Caching.md)
 16. Transactional emails
-17. Task queuing and scheduling
+17. [Task queuing and scheduling](./Chapters/Task_Queues_And_Background_Jobs.md)
 18. Elastic Search
 19. Error handling
 20. Config management
