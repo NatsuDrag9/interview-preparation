@@ -14,7 +14,7 @@
 10. [Handlers, Controllers and Services](./Chapters/Backend_Layers.md)
 11. CRUD deepdive
 12. [RESTful Architecture and Best Practices](./Chapters/Rest_API_Design.md)
-13. Databases
+13. [Databases](/Backend/Chapters/Databases.md)
 14. Business logic layer (BLL)
 15. [Caching](./Chapters/Caching.md)
 16. Transactional emails
