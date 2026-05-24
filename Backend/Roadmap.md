@@ -29,8 +29,8 @@
 20. [Config Management](./Chapters/Config_Management.md) **`[RECOMMENDED - Fullstack Glue]`**
 21. Logging, monitoring and observability
 22. Graceful shutdown
-23. Security
-24. Scaling and performance
+23. [Security](./Chapters/Security.md)
+24. [Scaling and Performance](./Chapters/Scaling_And_Performance.md)
 25. Concurrency and parallelism
 26. Object storage and large files
 27. Real-time backend systems
