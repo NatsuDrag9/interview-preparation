@@ -2,10 +2,11 @@
 
 ### Table of Contents
 
-*Focus Legend (Pragmatic Fullstack Prep):*
-*   **`[MANDATORY - Core]`** — Focus 100% of your energy here first. Covers 80% of coding and basic architecture interviews.
-*   **`[RECOMMENDED - Fullstack Glue]`** — Learn these second. Essential for connecting frontend/backend cleanly and building real-world projects.
-*   *Other topics* — Theoretical/Advanced. Good for System Design rounds, but learn them at a high level without getting bogged down.
+_Focus Legend (Pragmatic Fullstack Prep):_
+
+- **`[MANDATORY - Core]`** — Focus 100% of your energy here first. Covers 80% of coding and basic architecture interviews.
+- **`[RECOMMENDED - Fullstack Glue]`** — Learn these second. Essential for connecting frontend/backend cleanly and building real-world projects.
+- _Other topics_ — Theoretical/Advanced. Good for System Design rounds, but learn them at a high level without getting bogged down.
 
 1. [Roadmap and Backend Introduction](#roadmap-and-backend-introduction)
 2. [A high-level understanding](./Chapters/High_Level_Understanding.md)
@@ -27,7 +28,7 @@
 18. [Elastic Search](./Chapters/Elastic_Search.md)
 19. Error handling **`[MANDATORY - Core]`**
 20. [Config Management](./Chapters/Config_Management.md) **`[RECOMMENDED - Fullstack Glue]`**
-21. Logging, monitoring and observability
+21. [Logging, Monitoring and Observability](./Chapters/Logging_Monitoring_Observability.md)
 22. Graceful shutdown
 23. [Security](./Chapters/Security.md)
 24. [Scaling and Performance](./Chapters/Scaling_And_Performance.md)
