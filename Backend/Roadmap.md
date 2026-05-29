@@ -32,10 +32,10 @@ _Focus Legend (Pragmatic Fullstack Prep):_
 22. Graceful shutdown
 23. [Security](./Chapters/Security.md)
 24. [Scaling and Performance](./Chapters/Scaling_And_Performance.md)
-25. Concurrency and parallelism
+25. [Concurrency and Parallelism](./Chapters/Concurrency_And_Parallelism.md)
 26. Object storage and large files
 27. Real-time backend systems
-28. Testing and code quality **`[RECOMMENDED - Fullstack Glue]`**
+28. Testing and Code Quality **`[RECOMMENDED - Fullstack Glue]`**
 29. 12 factor app
 30. OpenAPI standards
 31. Webhooks
