@@ -596,3 +596,4 @@ export class PerformanceComponent implements OnDestroy {
 ## References
 
 - [GreatFrontEnd Angular Js](https://www.greatfrontend.com/blog/angular-experienced-interview-questions)
+- [Mosoic](https://gist.github.com/mosioc/57579cb7a980f57defa5c2823fc661c9)
