@@ -1,3 +1,407 @@
+### Components
+
+Building blocks of any Angular appplication which manage a specific section of the user interface called a view. A component is made up of:
+
+- Template - html file / html
+- Class - the model containing state
+- Metadata - defined using `@Component`. It links the class with its template, selector and styles
+- Styles - styles applied to the component
+
+### Module
+
+NgMOdule is a class decorated with `NgModule` that defines an Angular module - a container grouping related components, directives, pipes and services into a cohesive unit for better organization, readability and maintainability
+
+Key properties:
+
+- `declarations` - components, pipes, directives in this module
+- `imports` - other modules being used in this module
+- `providers` - services available for dependency injection
+- `exports` - elements made available to other modules
+
+```js
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppComponent} from './app.component';
+import {WelcomeComponent} from './welcome.component';
+
+@NgModule({
+  declarations: [AppComponent, WelcomeComponent],
+  imports: [BrowserModule],
+  providers: [],
+  bootstrap: [AppComponent]
+});
+
+export data AppModule{}
+```
+
+### Data binding
+
+Data binding connects the component's data with the template, keeping them in sync. It lets you display values, respond to user input, and update UI automatically.
+
+Two types:
+
+**One-way data binding**
+Data flows in one-direction - component --> view or from view --> component
+
+- Interpolation `{{value}}`: shows data
+- Property Binding `[property]="value"`: data flows from component to view thus binding the value in ts file to the DOM
+- Event Binding `(event)="handler()"`: listens to user actions so data flows from view to component
+
+```js
+<!-- Interpolation -->
+<h3>{{ title }}</h3>
+
+<!-- Property binding -->
+<img [src]="imageUrl" />
+
+<!-- Event binding -->
+<button (click)="onClick()">Click</button>
+```
+
+**Two-way data binding**
+Data flows in both-ways - updates in the view reflect in component and vice-versa.
+
+```js
+<input [(ngModel)]="username" />
+<p>Hello, {{ username }}!</p>
+
+// class
+
+export class AppComponent {
+  title = 'Data Binding Example';
+  imageUrl = 'logo.png';
+  username = '';
+  onClick() {
+    alert(`Hello ${this.username || 'Angular Dev'}!`);
+  }
+}
+
+
+```
+
+### Directive
+
+Directives are classes that add behavior to elements. They let you manipulate the DOM, change appearance or modify structure
+
+- **Component Directives** - have a template which act as custom elements
+- **Structural Directives** - modify DOM layout. Prefixed with `*` like `*ngIf`, `*ngFor`
+- **Attribute Directives** - change element appearance or behavior.
+
+### Custom directives
+
+Directives are classes that add behaviour or modify the DOM. Two types:
+
+- **Attribute Directives** - change the appearance or behavior of an element
+- **Structural Directives** - change the DOM structure by adding or removing elements
+
+**Creating attribute directive**
+
+```javascript
+
+@Directive({
+    selector: "[appHighlight]"
+})
+
+export class HighlightDirective{
+    constructor(private el: ElementRef, private renderer: Renderer2){}
+
+    @HostListener('mouseenter') onMouseEnter() {
+        tihs.renderer.setStyle(this.el.nativeElement, 'backgroundColor', 'yellow');
+    }
+
+    @HostListener('mouseleave') onMouseLeave() {
+        this.renderer.setStyle(this.el.nativeElement, 'backgroundColor', 'transparent');
+    }
+}
+```
+
+**Usage**
+
+```
+<p>
+<appHighlight> Highlight me! </appHighlight>
+</p>
+```
+
+**Structural directive**
+
+```javascript
+
+@Directive({
+    selector: '[appUnless]'
+})
+
+export class UnlessDirective{
+    constructor(
+        private templateRef: TemplateRef<any>,
+        private vcRef: ViewContainerRef,
+    ) {};
+
+    @Input set appUnless(condition: boolean) {
+        if(!condition) {
+            this.vcRef.createEmbeddedView(this.templateRef);
+        }
+        else {
+            this.vcRef.clear();
+        }
+    }
+}
+```
+
+**Usage**
+
+```js
+<p *appUnless="isVisible">I am visible only when isVisible is false</p>
+```
+
+### Service
+
+A service is a class decorated with `@Injectable()` that contains business logic and data operations which can be shared across the application (multiple components)
+
+Key features:
+
+- Singleton pattern - one instance shared app-wide
+- Dependency injection - injected into components via constructor
+- Separation of concerns - keeps business logic out of components
+
+```js
+@Injectable({
+  providedIn: 'root'
+})
+
+export class DataService {
+  constructor(private htpp: HttpClient){}
+
+  getData() {
+    return this.http.get('/api/data');
+  }
+}
+
+
+// Component
+export class MyComponent {
+  constructor(private dataService: DataService){};
+
+  loadData() {
+    this.dataService.getData().subscribe((data) => {console.log(data)})
+  }
+ }
+```
+
+### Dependency injection
+
+A pattern where Angular automatically provides dependencies (like services) to components instead of components creating them manually.
+
+**How it works**:
+
+- Register services using `@Injectable()` and `providedIn`
+- Inject dependencies via constructor parameters
+- Angular's inject creates and manages instances
+
+### Angular router
+
+Enables navigation between different views / components in a single-page application
+
+- Routes - map URLs to components
+- Router outlet - placeholder for routed components
+- Navigation - programmatic and declarative routing
+
+```js
+cosnt routes: Routes = [
+  {path: 'home', component: HomeComponent},
+  {path: 'about', component: AboutComponent}
+]
+
+// App html
+<nav>
+  <a routerLink = "/home">Home </a>
+  <a routerLink = "/about">About </a>
+</nav>
+
+<router-outlet></router-outlet>
+
+```
+
+### Pipes
+
+Transform data in templates without changing the original data. They are used for formatting display values.
+
+Built-in pipes:
+
+- DatePipe - format dates
+- CurrencyPipe - format currency
+- UpperCasePipe - convert to uppercase
+- JsonPipe - display objects as JSON
+
+```js
+<p>{{ today | data: 'short' }}</p>
+<p>{{ price | currency: 'USD' }}</p>
+<p>{{ name | uppercase }}</p>
+<p>{{ user | json}} </p>
+```
+
+Custom pipe
+
+```js
+
+@Pipe({name: 'reverse'})
+
+export class ReversePipe implements PipeTransform {
+  transform(value: string): string {
+    return value.split("").reverse().join("");
+  }
+}
+
+// Usage
+
+<p> {{'Angular' | reverse}} </p>
+
+// Outputs: ralugnA
+```
+
+### Life cycle hooks
+
+They are called at specific moments in a component's lifecycle
+
+- `ngOnInit` - after component initializaation
+- `ngOnDestroy` - before component destruction
+- `ngOnChanges` - when input properties changes
+- `ngAfterViewInit` - after view initialization
+
+### Standalone components
+
+Components that don't required `ngModules`. Components, directives and pipes are implicitly standalone by default since Angular 19+.
+
+### @Input and @Output decorators
+
+They enable communication between parent and child components
+
+`@Input` - passes data from parent to child
+
+```js
+// Child
+export class ChildComponent{
+  @Input() userName: string = "";
+}
+
+// Parent
+<app-child [username]="parentName"> </app-child>
+```
+
+`@output` - sends events from child to parent
+
+```js
+export class ChildComponent {
+  @Output notify = new EventEmitter<string>();
+
+  sendMessage() {
+    this.notify.emit("Hello from child component");
+  }
+}
+
+// Parent
+<app-child (notify)="handleMessage($event)"></app-child>
+
+export class Parent {
+  handleMessage(message: string) {
+    console.log(message);
+  }
+}
+```
+
+### Observables
+
+An Observable is a reusable blueprint for creating a stream of data. Nothing happens until someone subscribes to it.
+
+```js
+// Observable — just a blueprint, nothing executes yet
+const data$ = new Observable((subscriber) => {
+  subscriber.next(1);
+  subscriber.next(2);
+  subscriber.complete();
+});
+
+// Only when we subscribe does it run
+data$.subscribe({
+  next: (value) => console.log(value), // logs 1, 2
+  complete: () => console.log("Done"),
+});
+```
+
+| Type | How it works | Use case |
+|------|-------------|----------|
+| **Observable** | One-way: emits values, subscribers listen. Multiple subscribers get independent copies. | HTTP calls, timers, DOM events |
+| **Subject** | Two-way: acts as both emitter and listener. Subscribers share the same stream. | Pub/sub within app, event buses |
+| **BehaviorSubject** | Like Subject but remembers the latest value and gives it to new subscribers immediately. | Current user state, theme selection |
+
+**Observable** - Read-only stream
+
+```js
+const data$ = new Observable(subscriber => {
+  subscriber.next('value1');
+  subscriber.next('value2');
+});
+
+// Subscriber 1 gets: value1, value2
+data$.subscribe(v => console.log('Sub1:', v));
+
+// Subscriber 2 ALSO gets: value1, value2 (independent stream)
+data$.subscribe(v => console.log('Sub2:', v));
+```
+
+**Subject** - Emitter + Listener hybrid (hot stream)
+
+```js
+const clicks$ = new Subject<string>();
+
+// Two subscribers
+clicks$.subscribe(v => console.log('Sub1:', v));
+clicks$.subscribe(v => console.log('Sub2:', v));
+
+// When we emit, BOTH get it
+clicks$.next('clicked'); // Both logs: 'clicked'
+```
+
+**BehaviorSubject** - Subject that remembers the last value
+
+```js
+const user$ = new BehaviorSubject<string>('Guest');
+
+user$.subscribe(u => console.log('Sub1:', u)); // logs 'Guest' immediately
+
+user$.next('Alice');
+
+user$.subscribe(u => console.log('Sub2:', u)); // logs 'Alice' immediately (not 'Guest')
+```
+
+**Observable Combination Operators**:
+
+**`combineLatest`** - Emits latest values from all observables whenever any changes
+
+```js
+searchResults$ = combineLatest([this.searchTerm$, this.category$]).pipe(
+  switchMap(([term, cat]) => this.api.search(term, cat)),
+);
+```
+
+**`withLatestFrom`** - Emits from primary observable with latest from secondaries (doesn't trigger on secondary changes)
+
+```js
+saveComment$ = this.saveButton$.pipe(
+  withLatestFrom(this.userId$, this.commentText$),
+  switchMap(([_, userId, text]) => this.api.save(userId, text)),
+);
+```
+
+**`forkJoin`** - Waits for all observables to complete, then emits final values (like Promise.all)
+
+```js
+dashboardData$ = forkJoin({
+  user: this.userService.getUser("123"),
+  posts: this.postService.getPosts("123"),
+});
+```
+
 ### MVVM architecture pattern in Angular
 
 Angular follows **Model-View-ViewModel (MVVM)** pattern where:
@@ -258,73 +662,6 @@ Process of compiling Angular templates and Typescript code at build time, before
 - Faster startup
 - Smaller bundle size
 
-### Custom directives
-
-Directives are classes that add behaviour or modify the DOM. Two types:
-
-- **Attribute Directives** - change the appearance or behavior of an element
-- **Structural Directives** - change the DOM structure by adding or removing elements
-
-**Creating attribute directive**
-
-```javascript
-
-@Directive({
-    selector: "[appHighlight]"
-})
-
-export class HighlightDirective{
-    constructor(private el: ElementRef, private renderer: Renderer2){}
-
-    @HostListener('mouseenter') onMouseEnter() {
-        tihs.renderer.setStyle(this.el.nativeElement, 'backgroundColor', 'yellow');
-    }
-
-    @HostListener('mouseleave') onMouseLeave() {
-        this.renderer.setStyle(this.el.nativeElement, 'backgroundColor', 'transparent');
-    }
-}
-```
-
-**Usage**
-
-```
-<p>
-<appHighlight> Highlight me! </appHighlight>
-</p>
-```
-
-**Structural directive**
-
-```javascript
-
-@Directive({
-    selector: '[appUnless]'
-})
-
-export class UnlessDirective{
-    constructor(
-        private templateRef: TemplateRef<any>,
-        private vcRef: ViewContainerRef,
-    ) {};
-
-    @Input set appUnless(condition: boolean) {
-        if(!condition) {
-            this.vcRef.createEmbeddedView(this.templateRef);
-        }
-        else {
-            this.vcRef.clear();
-        }
-    }
-}
-```
-
-**Usage**
-
-```js
-<p *appUnless="isVisible">I am visible only when isVisible is false</p>
-```
-
 ### Signals vs RxJs Observables
 
 Signals and Observables, both handle reactive data as well as data sharing but differ in scope and use case according to popular conventions. Strictly, either of them can do the job
@@ -532,8 +869,6 @@ export class UserListComponent {
 
 ```
 
-<!-- To Do: Add combineLatest, withLatestFrom, forkJoin -->
-
 ### Signal Effects
 
 Signal effects are reactive side effects that run automatically whenever a signal value changer - similar to `useEffect` in React. They let you respond to state changes outside the template.
@@ -595,5 +930,6 @@ export class PerformanceComponent implements OnDestroy {
 
 ## References
 
-- [GreatFrontEnd Angular Js](https://www.greatfrontend.com/blog/angular-experienced-interview-questions)
+- [GreatFrontEnd Angular Js Beginner](https://www.greatfrontend.com/blog/angular-basic-interview-questions)
+- [GreatFrontEnd Angular Js Advanced](https://www.greatfrontend.com/blog/angular-experienced-interview-questions)
 - [Mosoic](https://gist.github.com/mosioc/57579cb7a980f57defa5c2823fc661c9)
