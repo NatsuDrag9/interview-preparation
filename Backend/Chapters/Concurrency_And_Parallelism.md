@@ -1,49 +1,59 @@
 ## Concurrency And Parallelism
 
-### The Cost of IDLE CPU
+### Core Concepts
 
-A modern CPU can execute ~ 3B instructions / sec. Without concurrency, the server will continue to wait for the request to complete before processing another thus wasting its resources.
+#### Concurrency vs. Parallelism
+* **Concurrency** is about **structure**. It is the ability to handle multiple tasks by interleaving their execution (making progress on more than one task at a time, e.g., time-sharing on a single CPU core).
+* **Parallelism** is about **execution**. It is the ability to run multiple tasks simultaneously at the exact same physical instant (which requires multiple CPU cores).
 
-#### Concurrency
+> **Analogy:** 
+> * **Concurrency:** A single chef chopping onions, then stirring the soup, then checking the oven. They are managing multiple tasks sequentially.
+> * **Parallelism:** Three chefs in the kitchen, each doing one of those tasks at the exact same time.
 
-Concurrency allows CPU's resources to be used for other tasks while waiting for the response of a particular request.
+Most backend web applications are **I/O-bound** (waiting on databases, disk reads, or external API calls) rather than CPU-bound (doing heavy mathematical computations, video processing, or cryptography).
 
-#### Parallelism
+---
 
-One CPU core executes one instruction at a particular instant. Parallelism is when multiple CPU cores can execute multiple unique instructions simultaneously at a particular instant.
-Most backend applications are I/O bound
+### Implementation Models
 
-### How to Implement
+There are three primary models to handle concurrency in backend servers:
 
-Fundamentally there are only two ways:
+#### 1. Thread-per-Request (Multi-Threading)
+Traditionally used by frameworks like Java (Spring Boot/Tomcat) or Python (Django/WSGI).
+* **How it works:** The server spawns or assigns a dedicated OS thread for every incoming connection/request.
+* **How it handles I/O:** When a request needs to query the database, the thread **blocks** (goes to sleep) and waits for the database response. The operating system context-switches to another thread that is ready to run.
+* **Pros:** Highly intuitive to write and debug (code executes sequentially from top to bottom).
+* **Cons (Overhead):**
+  * **Memory:** Every OS thread allocates a fixed stack (typically ~1MB). High concurrency (e.g., 10,000 active connections) requires gigabytes of memory just for thread stacks.
+  * **Thread Creation:** Spawning new OS threads is expensive. (Mitigated by using **Thread Pools**).
+  * **Context Switching:** Switching between thousands of active threads consumes significant CPU overhead.
 
-- Threads
-- Event Loops
+#### 2. Single-Threaded Event Loop (Asynchronous Non-blocking)
+Used by technologies like Node.js (JavaScript), Redis, and Nginx.
+* **How it works:** A single main thread runs in a continuous loop, executing tasks and handling events from a queue.
+* **How it handles I/O:** When I/O is required, the thread registers a callback with the operating system and immediately moves to the next request. Once the OS finishes the I/O, the callback is put into the task queue, and the event loop executes it when free.
+* **Pros:** Extremely lightweight, highly scalable for I/O-bound tasks, and requires minimal memory.
+* **Cons (The Golden Rule):** **Never block the event loop.** If a task performs heavy CPU-bound computation (e.g., password hashing, image processing), it blocks the entire thread. This prevents any other requests or callbacks from processing.
 
-The difference between the two is in the way operations are paused and unpaused.
+#### 3. Virtual Threads / Coroutines (Lightweight Threads)
+The modern paradigm used in Go (Goroutines), Java 21+ (Virtual Threads), Kotlin (Coroutines), and Erlang (Processes).
+* **How it works:** The runtime manages lightweight "virtual" threads in user space and maps thousands of them onto a small pool of actual OS threads.
+* **How it handles I/O:** When a virtual thread blocks on I/O, the runtime automatically "parks" it and runs another virtual thread on the underlying OS thread.
+* **Pros:** The "best of both worlds." You write simple, synchronous-looking code (no complex callbacks or promises), but achieve the massive scalability and low memory usage of an event loop.
 
-<!-- This needs to be refined -->
+---
 
-#### Threads
+### Race Conditions & Thread Safety
 
-Create a new thread for each independent operation resulting in multiple threads for multiple operations. This resolves any CPU bound problem.
+A **race condition** occurs when multiple threads concurrently read and write to a shared memory location, and at least one access is a write, without proper synchronization. This leads to unpredictable and corrupted data.
 
-If multiple request arise, the thread for request A is paused, context switch occurs to complete the async operation.
+#### How to Prevent Race Conditions
 
-**Overhead Cost**
+1. **Shared-Memory Synchronization (Locks)**
+   * **Mutex (Mutual Exclusion):** A lock that ensures only one thread can access a "critical section" of code/data at a time.
+   * **Semaphore:** A counter-based lock that limits concurrent access to a fixed pool of resources (e.g., database connection pool).
+   * **Read-Write Lock:** Allows multiple threads to read concurrently, but only one thread to write (blocking all readers).
 
-- **Memory** - Creating a new thread involves creating a new stack for that thread which is a problem as the number of threads increases
-- **Thread Creation** - Every time a thread is created, a system call is made to the OS kernel which:
-  - Sets up the stack (memory issue above)
-  - Allocating different data structures
-  - Adding it to the scheduler
-- **Context Switch** - Saving the current thread's CPU registers and perform all the other steps before moving to a new thread / task. This can be very large when there are thousands of threads.
-
-#### Event Loop
-
-One thread performs multiple tasks using callbacks, algorithms and other components which ensure that the event loop is never blocked. This resolves I/O bound problem - concurrent workloads.
-
-The pause and unpause mechanism is controlled by _callbacks_.
-
-On every loop iteration, check for the I/O operation's completion, run its callback and then place that operation / task back into the queue.
-The catch is that each task should not be CPU intensive or ideally, not consume CPU at all. Hence, the nature of the task is generally for I/O.
+2. **Message-Passing (Share Nothing)**
+   Instead of sharing memory and using locks to protect it, threads communicate by sending messages through **Channels** (Go) or using the **Actor Model** (Erlang/Akka). This avoids shared state completely.
+   > **Proverb:** *"Do not communicate by sharing memory; instead, share memory by communicating."*
