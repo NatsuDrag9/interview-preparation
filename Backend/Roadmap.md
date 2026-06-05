@@ -10,36 +10,38 @@ _Focus Legend (Pragmatic Fullstack Prep):_
 
 1. [Roadmap and Backend Introduction](#roadmap-and-backend-introduction)
 2. [A high-level understanding](./Chapters/High_Level_Understanding.md)
-3. [HTTP protocol](./Chapters/HTTP_Protocol.md) **`[MANDATORY - Core]`**
-4. [Routing](./Chapters/Routing.md)
-5. [Serialisation and deserialisation](./Chapters/Serialization_and_Deserialization.md)
-6. [Authentication and Authorisation](./Chapters/Authentication_And_Authorization.md) **`[MANDATORY - Core]`**
-7. [Validation and transformation](./Chapters/Validations_And_Transformations.md) **`[MANDATORY - Core]`**
-8. [Middlewares](./Chapters/Backend_Layers.md) **`[RECOMMENDED - Fullstack Glue]`**
-9. Request context
-10. [Handlers, Controllers and Services](./Chapters/Backend_Layers.md) **`[MANDATORY - Core]`**
-11. CRUD deepdive **`[MANDATORY - Core]`**
-12. [RESTful Architecture and Best Practices](./Chapters/Rest_API_Design.md) **`[MANDATORY - Core]`**
-13. [Databases](/Backend/Chapters/Databases.md) **`[MANDATORY - Core]`**
-14. Business logic layer (BLL)
-15. [Caching](./Chapters/Caching.md) **`[RECOMMENDED - Fullstack Glue]`**
-16. Transactional emails
-17. [Task queuing and scheduling](./Chapters/Task_Queues_And_Background_Jobs.md)
-18. [Elastic Search](./Chapters/Elastic_Search.md)
-19. Error handling **`[MANDATORY - Core]`**
-20. [Config Management](./Chapters/Config_Management.md) **`[RECOMMENDED - Fullstack Glue]`**
-21. [Logging, Monitoring and Observability](./Chapters/Logging_Monitoring_Observability.md)
-22. Graceful shutdown
-23. [Security](./Chapters/Security.md)
-24. [Scaling and Performance](./Chapters/Scaling_And_Performance.md)
-25. [Concurrency and Parallelism](./Chapters/Concurrency_And_Parallelism.md)
-26. Object storage and large files
-27. Real-time backend systems
-28. Testing and Code Quality **`[RECOMMENDED - Fullstack Glue]`**
-29. 12 factor app
-30. OpenAPI standards
-31. Webhooks
-32. DevOps for backend engineers
+3. [Internet Working](./Chapters/Internet_Working.md)
+4. [HTTP protocol](./Chapters/HTTP_Protocol.md) **`[MANDATORY - Core]`**
+5. [Routing](./Chapters/Routing.md)
+6. [Serialisation and deserialisation](./Chapters/Serialization_and_Deserialization.md)
+7. [Authentication and Authorisation](./Chapters/Authentication_And_Authorization.md) **`[MANDATORY - Core]`**
+8. [Validation and transformation](./Chapters/Validations_And_Transformations.md) **`[MANDATORY - Core]`**
+9. [Middlewares](./Chapters/Backend_Layers.md) **`[RECOMMENDED - Fullstack Glue]`**
+10. Request context
+11. [Handlers, Controllers and Services](./Chapters/Backend_Layers.md) **`[MANDATORY - Core]`**
+12. CRUD deepdive **`[MANDATORY - Core]`**
+13. [RESTful Architecture and Best Practices](./Chapters/Rest_API_Design.md) **`[MANDATORY - Core]`**
+14. [Databases](/Backend/Chapters/Databases.md) **`[MANDATORY - Core]`**
+15. Business logic layer (BLL)
+16. [Caching](./Chapters/Caching.md) **`[RECOMMENDED - Fullstack Glue]`**
+17. Transactional emails
+18. [Task queuing and scheduling](./Chapters/Task_Queues_And_Background_Jobs.md)
+19. [Elastic Search](./Chapters/Elastic_Search.md)
+20. Error handling **`[MANDATORY - Core]`**
+21. [Config Management](./Chapters/Config_Management.md) **`[RECOMMENDED - Fullstack Glue]`**
+22. [Logging, Monitoring and Observability](./Chapters/Logging_Monitoring_Observability.md)
+23. Graceful shutdown
+24. [Security](./Chapters/Security.md)
+25. [Scaling and Performance](./Chapters/Scaling_And_Performance.md)
+26. [Concurrency and Parallelism](./Chapters/Concurrency_And_Parallelism.md)
+27. Object storage and large files
+28. Real-time backend systems
+29. Testing and Code Quality **`[RECOMMENDED - Fullstack Glue]`**
+30. 12 factor app
+31. OpenAPI standards
+32. Webhooks
+33. DevOps for backend engineers
+34. [Linux Essentials](./Chapters/Linux_Essentials.md)
 
 ### Roadmap And Backend Introduction
 

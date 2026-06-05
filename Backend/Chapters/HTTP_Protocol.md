@@ -40,6 +40,10 @@ Sent by a client
 - Response headers (key-value pairs)
 - Response Body
 
+![alt text](../../assets/http-structure.png)
+
+_Image reference: [Backend Cheats - HTTP Protocol](https://github.com/cheatsnake/backend-cheats#http-protocol)_
+
 #### Headers
 
 A different section is created for headers because it is metadata about the request. It's like the address and other details mentioned about the package.
@@ -195,6 +199,7 @@ When a cross-origin request qualifies as "simple" (GET, POST, or HEAD method; on
 
 **Pre-flight Request**
 Apart from _Origin_ and server domain being different, to qualify as a pre-flight request, one of these 3 have to be true:
+
 - Method is not GET, POST, or HEAD (e.g. PUT, DELETE)
 - Request includes non-simple headers (like Authorization, X-Custom-Header)
 - The request has a Content-Type other than `application/x-www-form-urlencoded`, `multipart/form-data`, `text/plain`.
@@ -202,6 +207,7 @@ Apart from _Origin_ and server domain being different, to qualify as a pre-fligh
 Made using `OPTIONS` method.
 
 **Browser Request**:
+
 ```http
 OPTIONS /api/resource HTTP/1.1
 Host: api.anotherdomain.com
@@ -213,6 +219,7 @@ Access-Control-Request-Headers: Authorization
 Browser is making a cross-origin-request to the server at `api.anotherdomain.com` to ask whether it supports the `PUT` method for this route and asks whether `Authorization` header is supported.
 
 **Server Response**:
+
 ```http
 HTTP/1.1 204 No Content
 Access-Control-Allow-Origin: https://example.com
