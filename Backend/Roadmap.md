@@ -44,6 +44,7 @@ _Focus Legend (Pragmatic Fullstack Prep):_
 32. Webhooks
 33. DevOps for backend engineers - <!-- To Do: Write about docker, message brokers, RabbitMQ, Redis -->
 34. [Linux Essentials](./Chapters/Linux_Essentials.md)
+35. [Cheat Sheet](./Chapters/Cheat_Sheet.md)
 
 ### Roadmap And Backend Introduction
 
