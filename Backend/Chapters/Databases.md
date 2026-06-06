@@ -187,3 +187,72 @@ Depending on the requirement, we can customize whether the order of index is _as
 *  **Filtering**: Use `ILIKE` for case-insensitive pattern matching (e.g., searching for a name).
 
 *   **Joins**: Use `LEFT JOIN` if you want to keep records from the main table even if the related table has no data (e.g., get Users even if they don't have a Profile).
+
+---
+
+
+### Interview Relevant Topics
+
+Types of databases:
+- Relational DB - Repositories where data is organized as a set of tables with rows and columns. Interactions between data are organized in the form of relations (links) between these tables. E.g. MySQL, PostgreSQL, SQLite, Oracle, SQL Server.
+- Object-Oriented DB - Data is represented as objects wtih a set of attributes and methods. Best suited for applications requiring complex data structures and relationships.
+- Distributed DB - Composed of multiple databases that are located on different physical servers.
+- NoSQL - Stores and processes unstructured or weakly structured data. E.g. MongoDB, Cassandra, Redis, 
+
+#### Relational DBs
+Most popuplar amongst all of them. A special language called SQL (Structured Query Language) is used to interact with relational databases.
+- SQL Basics - 
+- Merging tables
+    - Querying from multiple tables - Querying multiple tables is usually done using joins. 
+    - Relationships between tables - Relationships between tables are established using foreign keys. 
+- Subquery Expressions - A subquery is a query nested inside another query. Used when you need to use the result of one query as an input for another query
+- Indexes - Indexes are used to speed up the data retrieval process. 
+- Transactions - Sequences of commands that must be executed completely, or not executed at all. Ensures that data is in a consistent state.
+- Object Relational Mapping (ORM)- Execute SQL queries as if were to simply call those methods on an object.
+
+
+#### ACID Requirements
+Atomicity - Guarantess that the transaction will be executed completely or not executed at all.
+
+Consistency - Ensures that each successful transaction leaves the database in a valid state.
+
+Isolation - Ensures that one transaction cannot affect the other in any way.
+
+Durability - Ensures that once a transaction is committed, it will remain in the database even in case of system failure.
+
+<!-- To Do: Add an example of ACID requirements -->
+**Example: Bank Transfer** (Alice transfers $100 to Bob)
+*   **Atomicity**: Either Alice is debited $100 AND Bob is credited $100, or neither happens (rolls back on failure).
+*   **Consistency**: Account balances cannot go negative (enforced by schema constraints). If Alice has < $100, the transaction fails.
+*   **Isolation**: Other transactions see either the full pre-transfer or post-transfer state, never intermediate or uncommitted states. (e.g., Prevents a concurrent transaction from approving a purchase using Bob's pending $150 - $50 original + $100 transfer in progress, balance if Alice's transfer fails and rolls back).
+*   **Durability**: Once completed, the transfer is written to disk/WAL and persists through power losses or crashes.
+
+#### Designing Databases
+
+Basic steps:
+
+- Define entities - An entity is an object, concept, or thing that we want to store data about. E.g. In an e-commerce application, users, products, orders, 
+
+- Define attributes - These are the properties of an entity. E.g. For a user entity, attributes could be name, email, password, etc.
+
+- Add constraints - Constraints are rules on attribute values to ensure data integrity. E.g. A user's age must be a positive number.
+
+- Define relationships - These are the relationships like one-to-one, one-to-many, many-to-many between entities. E.g. A user can have multiple orders. Relationships between user and order entities can be represented using foreign keys.
+
+- Normalization - Process of seprating data into separate related tables to reduce redundancy and improve data integrity. For e.g., a table with customer and order details can be seprated into two tables, one for customer details and another for order details. This is done to avoid data duplication of columns like customer name, address, etc. in the order table.
+
+
+- Define indexes - Create indexes on frequently queries columns to speed up the data retrieval process. For e.g., in a table with customer and order details, we can create an index on the customer id column to speed up the process of retrieving orders for a specific customer.
+
+### Redis
+
+A fast data storage working with key-value structures.
+
+Data Types:
+```
+    String / Bitmap / Bitfield / List / Set / Hash / Sorted sets / Geospatial / Hyperlog / Stream
+```
+
+
+
+Reference - [Backend Cheat Sheet by yurace](https://github.com/cheatsnake/backend-cheats)

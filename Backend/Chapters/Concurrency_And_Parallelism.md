@@ -2,6 +2,10 @@
 
 ### Core Concepts
 
+![Concurrency and Parallelism](../../assets/concurrency-parallel.png)
+
+Reference - [Backend Cheat Sheat](https://github.com/cheatsnake/backend-cheats/blob/master/files/os/concurrency-parallel.png)
+
 #### Concurrency vs. Parallelism
 * **Concurrency** is about **structure**. It is the ability to handle multiple tasks by interleaving their execution (making progress on more than one task at a time, e.g., time-sharing on a single CPU core).
 * **Parallelism** is about **execution**. It is the ability to run multiple tasks simultaneously at the exact same physical instant (which requires multiple CPU cores).
