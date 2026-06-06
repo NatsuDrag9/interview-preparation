@@ -82,3 +82,51 @@ Everytime something changes (POST, PUT, PATCH, DELETE), the database is updated 
 - Session Tokens - stored in cache (redis) instead of database.
 - API Caching - Cache 3rd party api content to reduce rate limit
 - Rate Limiting Mechanism - implemented in a middleware which takes a custom header to find the public ip address of client. A counter can be implemented to limit the number of times this client call the API. This counter is stored in redis
+
+Reference - [Backend From First Principles](https://www.youtube.com/watch?v=0Rwb4Xmlcwc&list=PLui3EUkuMTPgZcV0QhQrOcwMPcBCcd_Q1)
+
+---
+
+### Load Balancing
+
+![Load Balancing](../../assets/load-balancer-eng.png)
+
+When the traffic is high, it becomes difficult for a single server running a maximally optimized application to handle the traffic. At this point, we need to distribute the load across multiple machines/servers.
+
+A load balancer is a device that distributes the load across multiple servers. The load balances is placed between the client and the servers. It receives the traffic from the client and forwards it to the appropriate server.
+
+#### Key Concepts for Interviews
+
+*   **Algorithms**:
+    *   *Round Robin*: Routes requests sequentially.
+    *   *Least Connections*: Routes requests to the server with the fewest active connections (best for database or long-lived tasks).
+    *   *IP Hash*: Hashes the client's IP to assign a server (ensures a client always hits the same server).
+*   **Rate Limiting & Protection**: Implementing rate limits at the load balancer level (e.g., limiting connections per IP) shields the backend application servers from DDoS attacks and resource exhaustion.
+
+#### Setup Example (Nginx as a Load Balancer)
+
+```nginx
+# 1. Define the upstream backend server pool
+upstream my_backend_cluster {
+    least_conn; # Use the Least Connections algorithm
+    server 10.0.0.1:8000;
+    server 10.0.0.2:8000;
+}
+
+# 2. Configure the server block to proxy traffic
+server {
+    listen 80;
+    server_name example.com;
+
+    location / {
+        proxy_pass http://my_backend_cluster;
+        
+        # Pass headers so the backend knows the real client's IP
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+```
+
+Reference - [Backend Cheat Sheet](https://github.com/cheatsnake/backend-cheats#load-balancing)

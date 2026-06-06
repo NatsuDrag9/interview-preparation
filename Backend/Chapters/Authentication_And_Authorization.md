@@ -142,3 +142,88 @@ Instead send generic messages like _Authentication failed to incorrect username 
 - An attacker can exploit this delay to determine the correct password.
 - To prevent timing attacks, use a constant-time comparison algorithm instead of the standard string comparison. The core principle is that the execution time does not depend on the input data.
 - Another way is to simulate a fake delay to mask the actual delay caused by the comparison
+
+Reference - [Backend From First Principles]((https://www.youtube.com/watch?v=0Rwb4Xmlcwc&list=PLui3EUkuMTPgZcV0QhQrOcwMPcBCcd_Q1))
+
+---
+
+### Types of Authentication
+
+
+#### Basic Authentication
+Username and password entered by the user is compared to the stored username and password in the backend
+
+**Steps**
+
+- User enters username and password in the login page
+- User makes an API request to the backend with username and password in payload
+- Backend extracts the username and password from payload and checks whether the user exists in the database
+- If user exists, then checks the password
+- If password matches, then generates a session id and sends it back to the client in a cookie
+- Client sends this cookie to the server in every subsequent requests as user identification to perform appropriate actions
+
+#### OAuth / OAuth 2.0
+
+It allows a user to grant a third-party application limited access to their resources on another service (like their Google or Facebook account) without ever sharing their password.
+
+**Authorization Server (AS)** - Authenticates the user, obtains consent, and issues the **Access Token**.
+**Resource Server (RS)** - Hosts the protected user data (e.g., API endpoints) and accepts access tokens.
+*   **Relationship**: The RS trusts the AS. To validate a token, the RS either cryptographically verifies its signature (using the AS's public keys) or calls the AS's token introspection endpoint.
+
+**Steps (Authorization Code Flow)**:
+1.  **Redirect**: User clicks login; Client redirects User to the **Authorization Server** (AS).
+2.  **Consent**: User authenticates and grants permissions (scopes).
+3.  **Auth Code**: AS redirects User back to Client's redirect URI with an **Authorization Code** (in the URL query parameter).
+4.  **Token Exchange**: Client's backend exchanges the Authorization Code + Client Secret with the AS for an **Access Token**.
+5.  **Resource Request**: Client calls the **Resource Server** (RS) with the Access Token (typically in the `Authorization: Bearer <token>` header).
+6.  **Validation**: RS validates the Access Token (via the AS public key or AS introspection endpoint).
+7.  **Response**: RS verifies the token scopes and returns the protected data to the Client.
+
+#### Open Id Connect (OIDC)
+
+OpenID Connect (OIDC) is an identity layer built on top of OAuth 2.0. It allows you to verify the identity of the user and obtain basic profile information from them.
+
+**Key Component**: **ID Token** (a JSON Web Token - JWT).
+
+**Flow (Implicit Flow Example)**:
+1.  **Redirect**: User clicks login; Client redirects the browser to the Authorization Server (AS).
+2.  **Authentication**: User logs in to the AS.
+3.  **Token Delivery**: The AS redirects the browser back to the Client's **Redirect URI** with the **ID Token** and **Access Token** in the URL fragment (`#`).
+4.  **Client Processing**: The Client extracts the tokens from the URL.
+5.  **Validation & Session**: The Client validates the ID Token signature and claims (e.g., `sub`, `iss`, `exp`). Upon success, it establishes a local session for the user (e.g., via a cookie).
+6.  **Resource Access**: For subsequent requests to a Resource Server (RS), the Client uses the Access Token from step 3.
+
+**Key Difference from OAuth**: OAuth is for **Authorization** (granting access to resources). OIDC is for **Authentication** (proving who the user is) and uses the ID Token to convey identity information.
+
+#### JSON Web Tokens (JWT)
+
+A JSON Web Token (JWT) is a compact, URL-safe means of representing data to be transferred between two parties. The data in a JWT are encoded as a JSON object that is simply signed using JSON Web Signature (JWS) or optionally encrypted using JSON Web Encryption (JWE).
+
+**Structure**
+
+A JWT consists of three parts:
+
+- **Header**: Contains the type of the token and the signing algorithm being used.
+- **Payload**: Contains the claims, which are the statements about an entity (typically, the user), and any additional data.
+- **Signature**: Used to verify the integrity of the token. It is created by signing the header and payload with a secret key.
+
+**Flow**
+
+1.  **Authentication**: User logs in with username and password
+2.  **Token Generation**: Server generates a JWT token with user info and sends it to the client
+3.  **Client Request**: Client sends the JWT token in the Authorization header to the server for authentication
+4.  **Token Validation**: Server validates the JWT token
+5.  **Response**: Server returns the requested resource to the client
+
+**Example JWT**
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
+
+Reference - [Backend Cheat Sheet](https://github.com/cheatsnake/backend-cheats#common-authentication-patterns)

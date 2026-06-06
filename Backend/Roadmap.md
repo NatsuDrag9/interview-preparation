@@ -20,7 +20,9 @@ _Focus Legend (Pragmatic Fullstack Prep):_
 10. Request context
 11. [Handlers, Controllers and Services](./Chapters/Backend_Layers.md) **`[MANDATORY - Core]`**
 12. CRUD deepdive **`[MANDATORY - Core]`**
-13. [RESTful Architecture and Best Practices](./Chapters/Rest_API_Design.md) **`[MANDATORY - Core]`**
+13. API Development
+    - [RESTful Architecture and Best Practices](./Chapters/Rest_API_Design.md) **`[MANDATORY - Core]`**
+    - [Web Sockets and RPC](./Chapters/Web_Sockets_And_RPC.md)
 14. [Databases](/Backend/Chapters/Databases.md) **`[MANDATORY - Core]`**
 15. Business logic layer (BLL)
 16. [Caching](./Chapters/Caching.md) **`[RECOMMENDED - Fullstack Glue]`**
@@ -40,7 +42,7 @@ _Focus Legend (Pragmatic Fullstack Prep):_
 30. 12 factor app
 31. OpenAPI standards
 32. Webhooks
-33. DevOps for backend engineers
+33. DevOps for backend engineers - <!-- To Do: Write about docker, message brokers, RabbitMQ, Redis -->
 34. [Linux Essentials](./Chapters/Linux_Essentials.md)
 
 ### Roadmap And Backend Introduction

