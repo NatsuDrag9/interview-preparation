@@ -1,6 +1,6 @@
 ## HTTP Protocols
 
-Two key characterstics - statelessness and client-server modeal
+Two key characterstics - statelessness and client-server modal
 
 ### Statelessness
 
@@ -136,7 +136,7 @@ Communicate the result of a request in a standardized way across servers and lan
 
 ### Caching
 
-Technique of caching to store copoies of responses for reuse reducing the need to do repeated request to the server. Improves load time, reduces bandwidth and decreases server load.
+Technique of caching to store copies of responses for reuse and reducing the need to do repeated request to the server. Improves load time, reduces bandwidth and decreases server load.
 
 Server returns 304 if client is to continue to use the cached result. Else, the new result is provided.
 
@@ -227,3 +227,11 @@ Access-Control-Allow-Methods: PUT, DELETE
 Access-Control-Allow-Headers: Authorization
 Access-Control-Max-Age: 86400 // Server says the config specified will be same for 24 hrs (86400s) so don't make another request to me
 ```
+
+**What the server conveys**:
+- `Access-Control-Allow-Origin: https://example.com` — Server permits requests from this origin
+- `Access-Control-Allow-Methods: PUT, DELETE` — Server allows PUT and DELETE methods for this resource
+- `Access-Control-Allow-Headers: Authorization` — Server allows the Authorization header in requests
+- `Access-Control-Max-Age: 86400` — Browser can cache this preflight response for 24 hours; no need to ask again during this period
+
+Once the browser receives this approval, it proceeds with the actual cross-origin request (PUT, POST, DELETE, etc.)

@@ -8,11 +8,11 @@
 
 #### Sessions
 
-A session provides a way to establish a temporary server side context for each user. The server stored the user data along with session id is stored in a persistent storage - database or an in-memory redis store.
+A session provides a way to establish a temporary server side context for each user. The server stores the user data along with session id in a persistent storage - database or an in-memory redis store.
 
 #### JWT
 
-A stateless mechanism to transfer claims in a stateless manner between two systems. The key innovation is that jwt tokens are self-contained.
+A mechanism to transfer claims in a stateless manner between two systems. The key innovation is that jwt tokens are self-contained.
 Has 3 parts:
 
 - Header - contains metadata about jwt itself like signing algorithem
@@ -27,7 +27,7 @@ Working:
 - Client logs in
 - Server sends a jwt token which is stored in the client's system
 - With every subsequent request, client sends a JWT in either a authorization or in other forms like cookie.
-- Server, when receives this jwt, verifies it with its secret key and identifies the client and checks its permissions
+- Server, when receives this jwt, verifies it with its secret key, identifies the client and checks its permissions
 
 **Hybrid Approach**
 
@@ -61,12 +61,12 @@ Cookie is a way to store a piece of information sent by server in browsers (clie
 Flow:
 
 - Client sends username, password to server
-- On successful authentication, the server genrates a session-id and sends back to the client in a cookie
+- On successful authentication, the server generates a session-id and sends back to the client in a cookie
 - All subsequent requests from client will contain this cookie having the session-id
 
 session-id - cryptographic string or jwt
 
-- Centralized storage of authetnication info
+- Centralized storage of authentication info
 - High security
 - But main challenge is limited scalability during distributed systems, latency issues when synchronizing between multiple servers located in different regions
 
@@ -75,7 +75,7 @@ session-id - cryptographic string or jwt
 - Client sends username, password to server
 - On successful authentication, the server generates a signed jwt token with a secret key. This secret key is used to sign the jwt token and verify it. JWT containing user info is sent back to client.
 - Client sends this jwt in a **authorization** header to the Server for identification in all subsequent requests
-- Server extracts the JWT token, decrypts it and verify the client
+- Server extracts the JWT token, decrypts it and verifies the client
 
 **Stateless** because no lookup is happening in a persistence store
 
@@ -143,14 +143,14 @@ Instead send generic messages like _Authentication failed to incorrect username 
 - To prevent timing attacks, use a constant-time comparison algorithm instead of the standard string comparison. The core principle is that the execution time does not depend on the input data.
 - Another way is to simulate a fake delay to mask the actual delay caused by the comparison
 
-Reference - [Backend From First Principles]((https://www.youtube.com/watch?v=0Rwb4Xmlcwc&list=PLui3EUkuMTPgZcV0QhQrOcwMPcBCcd_Q1))
+Reference - [Backend From First Principles](<(https://www.youtube.com/watch?v=0Rwb4Xmlcwc&list=PLui3EUkuMTPgZcV0QhQrOcwMPcBCcd_Q1)>)
 
 ---
 
 ### Types of Authentication
 
-
 #### Basic Authentication
+
 Username and password entered by the user is compared to the stored username and password in the backend
 
 **Steps**
@@ -168,9 +168,11 @@ It allows a user to grant a third-party application limited access to their reso
 
 **Authorization Server (AS)** - Authenticates the user, obtains consent, and issues the **Access Token**.
 **Resource Server (RS)** - Hosts the protected user data (e.g., API endpoints) and accepts access tokens.
-*   **Relationship**: The RS trusts the AS. To validate a token, the RS either cryptographically verifies its signature (using the AS's public keys) or calls the AS's token introspection endpoint.
+
+- **Relationship**: The RS trusts the AS. To validate a token, the RS either cryptographically verifies its signature (using the AS's public keys) or calls the AS's token introspection endpoint.
 
 **Steps (Authorization Code Flow)**:
+
 1.  **Redirect**: User clicks login; Client redirects User to the **Authorization Server** (AS).
 2.  **Consent**: User authenticates and grants permissions (scopes).
 3.  **Auth Code**: AS redirects User back to Client's redirect URI with an **Authorization Code** (in the URL query parameter).
@@ -186,6 +188,7 @@ OpenID Connect (OIDC) is an identity layer built on top of OAuth 2.0. It allows 
 **Key Component**: **ID Token** (a JSON Web Token - JWT).
 
 **Flow (Implicit Flow Example)**:
+
 1.  **Redirect**: User clicks login; Client redirects the browser to the Authorization Server (AS).
 2.  **Authentication**: User logs in to the AS.
 3.  **Token Delivery**: The AS redirects the browser back to the Client's **Redirect URI** with the **ID Token** and **Access Token** in the URL fragment (`#`).

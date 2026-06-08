@@ -39,7 +39,7 @@ _Focus Legend (Pragmatic Fullstack Prep):_
 27. Object storage and large files
 28. Real-time backend systems
 29. Testing and Code Quality **`[RECOMMENDED - Fullstack Glue]`**
-30. 12 factor app
+30. 2 factor app
 31. OpenAPI standards
 32. Webhooks
 33. DevOps for backend engineers - <!-- To Do: Write about docker, message brokers, RabbitMQ, Redis -->
