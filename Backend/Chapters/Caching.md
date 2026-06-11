@@ -31,7 +31,6 @@ Use cases:
     - Root Servers -
       - Search for the appropriate TLD based on the query - **example.com** has `.com`, the query reaches the address of .com
       - The TLD contains the authoritative name server for **example.com** which then retrieves the ip
-    -
 
 Since DNS does all this work for every single request, most operating systems maintain a local cache for DNS. When a user requests a particular domain, before the query is sent to recursive resolver:
 
@@ -97,11 +96,11 @@ A load balancer is a device that distributes the load across multiple servers. T
 
 #### Key Concepts for Interviews
 
-*   **Algorithms**:
-    *   *Round Robin*: Routes requests sequentially.
-    *   *Least Connections*: Routes requests to the server with the fewest active connections (best for database or long-lived tasks).
-    *   *IP Hash*: Hashes the client's IP to assign a server (ensures a client always hits the same server).
-*   **Rate Limiting & Protection**: Implementing rate limits at the load balancer level (e.g., limiting connections per IP) shields the backend application servers from DDoS attacks and resource exhaustion.
+- **Algorithms**:
+  - _Round Robin_: Routes requests sequentially.
+  - _Least Connections_: Routes requests to the server with the fewest active connections (best for database or long-lived tasks).
+  - _IP Hash_: Hashes the client's IP to assign a server (ensures a client always hits the same server).
+- **Rate Limiting & Protection**: Implementing rate limits at the load balancer level (e.g., limiting connections per IP) shields the backend application servers from DDoS attacks and resource exhaustion.
 
 #### Setup Example (Nginx as a Load Balancer)
 
@@ -120,7 +119,7 @@ server {
 
     location / {
         proxy_pass http://my_backend_cluster;
-        
+
         # Pass headers so the backend knows the real client's IP
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;

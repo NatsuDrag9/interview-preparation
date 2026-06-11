@@ -11,6 +11,17 @@
 7. Security - XSS, CSRF, SQL injection, password hashing, HTTPS/TLS
 8. System design fundamentals - load balancing, horizontal and vertical scaling, message queues,
 
+### Implementation Practice (Java-SpringBoot)
+
+1. Adding caching mechanisms in backend with tradeoffs and scenarios; Setting up redis
+2. Try to apply scaling mechanisms
+3. Pagination - offset vs cursor based
+4. Non-crud operations using post - searching, email
+5. Auth flow perfectly from frontend to backend with flow diagrams
+6. Popular Db query optimization techiques and scenarios - db indexes (linked to searching example)
+7. Deployment - docker, AWS
+8. Security best practices
+
 ### Questions
 
 1. What happens when a user logs in?
