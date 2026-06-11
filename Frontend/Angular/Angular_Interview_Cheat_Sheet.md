@@ -328,25 +328,25 @@ data$.subscribe({
 });
 ```
 
-| Type | How it works | Use case |
-|------|-------------|----------|
-| **Observable** | One-way: emits values, subscribers listen. Multiple subscribers get independent copies. | HTTP calls, timers, DOM events |
-| **Subject** | Two-way: acts as both emitter and listener. Subscribers share the same stream. | Pub/sub within app, event buses |
+| Type                | How it works                                                                             | Use case                            |
+| ------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
+| **Observable**      | One-way: emits values, subscribers listen. Multiple subscribers get independent copies.  | HTTP calls, timers, DOM events      |
+| **Subject**         | Two-way: acts as both emitter and listener. Subscribers share the same stream.           | Pub/sub within app, event buses     |
 | **BehaviorSubject** | Like Subject but remembers the latest value and gives it to new subscribers immediately. | Current user state, theme selection |
 
 **Observable** - Read-only stream
 
 ```js
-const data$ = new Observable(subscriber => {
-  subscriber.next('value1');
-  subscriber.next('value2');
+const data$ = new Observable((subscriber) => {
+  subscriber.next("value1");
+  subscriber.next("value2");
 });
 
 // Subscriber 1 gets: value1, value2
-data$.subscribe(v => console.log('Sub1:', v));
+data$.subscribe((v) => console.log("Sub1:", v));
 
 // Subscriber 2 ALSO gets: value1, value2 (independent stream)
-data$.subscribe(v => console.log('Sub2:', v));
+data$.subscribe((v) => console.log("Sub2:", v));
 ```
 
 **Subject** - Emitter + Listener hybrid (hot stream)
@@ -365,13 +365,13 @@ clicks$.next('clicked'); // Both logs: 'clicked'
 **BehaviorSubject** - Subject that remembers the last value
 
 ```js
-const user$ = new BehaviorSubject<string>('Guest');
+const user$ = new BehaviorSubject() < string > "Guest";
 
-user$.subscribe(u => console.log('Sub1:', u)); // logs 'Guest' immediately
+user$.subscribe((u) => console.log("Sub1:", u)); // logs 'Guest' immediately
 
-user$.next('Alice');
+user$.next("Alice");
 
-user$.subscribe(u => console.log('Sub2:', u)); // logs 'Alice' immediately (not 'Guest')
+user$.subscribe((u) => console.log("Sub2:", u)); // logs 'Alice' immediately (not 'Guest')
 ```
 
 **Observable Combination Operators**:
@@ -927,6 +927,74 @@ export class PerformanceComponent implements OnDestroy {
 - For derived or computed values, leverage computed signals
 - Replace `subsctiptions` with **effects** or **computed signals**
 - Test thoroughly
+
+### Forms using ReactiveFormsModule
+
+Reactive Forms (also called model-driven forms) use `FormControl`, `FormGroup`, and `FormBuilder` to manage form state programmatically in the component class instead of in the template.
+
+**ReactiveFormsModule approach:**
+
+```javascript
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-user-form',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
+  template: `
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <input formControlName="name" placeholder="Name" />
+      <span *ngIf="userForm.get('name')?.hasError('required')">Name is required</span>
+      
+      <input formControlName="email" placeholder="Email" />
+      <span *ngIf="userForm.get('email')?.hasError('email')">Invalid email</span>
+      
+      <button [disabled]="userForm.invalid">Submit</button>
+    </form>
+  `
+})
+export class UserFormComponent {
+  userForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.userForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]]
+    });
+  }
+
+  onSubmit() {
+    if (this.userForm.valid) {
+      console.log(this.userForm.value); // { name: '...', email: '...' }
+    }
+  }
+}
+```
+
+**Advantages over Template-Driven Forms (ngForm)**:
+
+| Feature | Reactive Forms | Template-Driven Forms |
+|---------|---|---|
+| **Control location** | Component class (logic in TS) | Template (logic in HTML) |
+| **Type safety** | ✅ Strongly typed in TypeScript | ❌ String-based, no type checking |
+| **Testing** | ✅ Easy to test (logic in component) | ❌ Hard to test (tied to template) |
+| **Complex validation** | ✅ Easy (custom validators in code) | ❌ Hard (validation logic mixed in template) |
+| **Dynamic forms** | ✅ Easy (add/remove fields programmatically) | ❌ Hard (requires ngIf/ngFor hacks) |
+| **Real-time updates** | ✅ `valueChanges` observable | ❌ Limited |
+| **Form state access** | ✅ Full programmatic access | ❌ Limited |
+| **Learning curve** | ❌ Steeper | ✅ Easier |
+
+**When to use Reactive Forms:**
+- Complex forms with dynamic fields
+- Heavy validation logic
+- Need real-time form state monitoring
+- Building forms programmatically
+- Large applications requiring testability
+
+**When to use Template-Driven Forms:**
+- Simple, small forms
+- Quick prototyping
+- Learning Angular basics
 
 ## References
 
