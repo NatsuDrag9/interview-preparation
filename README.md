@@ -15,7 +15,7 @@ For Backend - [Backend](./Backend/Roadmap.md)
 #### Frontend
 
 - [Akshay Saini's Namaste Javascript](https://www.youtube.com/watch?v=pN6jk0uUrD8&list=PLlasXeu85E9cQ32gLCvAvr9vNaUccPVNP)
--
+- [Namaste JS Notes by Akshad Jaiswal](https://namaste-javascript.vercel.app/)
 
 #### DSA
 
