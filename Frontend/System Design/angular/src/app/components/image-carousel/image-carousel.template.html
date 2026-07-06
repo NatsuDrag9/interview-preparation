@@ -1,0 +1,35 @@
+<div class="image-carousel">
+  <!-- Render pagination buttons -->
+  <button
+    type="button"
+    class="navigation-button__prev"
+    (click)="goToPrevious()"
+  >
+    &lt;
+  </button>
+  <button type="button" class="navigation-button__next" (click)="goToNext()">
+    &gt;
+  </button>
+
+  <!-- Render image tags using images.length -->
+
+  <div class="image-container">
+    <img
+      [src]="images[currentIndex]"
+      [alt]="'Slide ' + (currentIndex + 1)"
+      class="carousel-image"
+      [style.opacity]="isAnimating ? 0.7 : 1"
+    />
+  </div>
+
+  <!-- Render images.length no of navigation dots using button element -->
+  <div class="indicators">
+    @for (image of images; track $index) {
+    <button
+      class="dot"
+      [class.active]="$index === currentIndex"
+      (click)="goToSlide($index)"
+    ></button>
+    }
+  </div>
+</div>
