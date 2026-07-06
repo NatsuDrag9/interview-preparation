@@ -1,1 +1,8 @@
 /Frontend/Savart
+node_modules/
+.angular/
+dist/
+build/
+.vite/
+.cache/
+*.log
