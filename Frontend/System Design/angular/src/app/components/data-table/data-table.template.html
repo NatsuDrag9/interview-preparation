@@ -1,0 +1,75 @@
+<!-- <div>
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let col of columns">
+          <button (click)="onSort(col.key)">{{col.label}}</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of pageData">
+        <td *ngFor="let col of columns">{{row[col.key]}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+  <div class="pagination">
+    <select
+      aria-label="Page size"
+      (change)="onPageSizeSelect($any($event.target).value)"
+    >
+      <option *ngFor="let size of [5, 10, 20]" [value]="size">
+        Show {{size}}
+      </option>
+    </select>
+    <button type="button" (click)="onPrevious()" [disabled]="page === 1">
+      Previous
+    </button>
+    <span aria-label="Page number">Page {{page}} of {{totalPages}} </span>
+    <button type="button" (click)="onNext()" [disabled]="page === totalPages">
+      Next
+    </button>
+  </div>
+</div> -->
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        @for(col of columns; track col.key) {
+        <th>
+          <button type="button" (click)="onSort(col.key)">{{col.label}}</button>
+        </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for(row of pageData; track getRowKey(row)) {
+      <tr>
+        @for(col of columns; track col.key) {
+        <td>{{row[col.key]}}</td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
+  <hr />
+  <div class="pagination">
+    <select
+      aria-label="Page size"
+      (change)="onPageSizeSelect($any($event.target).value)"
+    >
+      @for(size of [5, 10, 20]; track size) {
+      <option [value]="size">Show {{size}}</option>
+      }
+    </select>
+    <button type="button" (click)="onPrevious()" [disabled]="page === 1">
+      Previous
+    </button>
+    <span aria-label="Page number">Page {{page}} of {{totalPages}} </span>
+    <button type="button" (click)="onNext()" [disabled]="page === totalPages">
+      Next
+    </button>
+  </div>
+</div>
