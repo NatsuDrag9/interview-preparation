@@ -37,7 +37,8 @@ export default function ComponentViewer({ activeComponent }) {
             "Debounced filtering and search suggestions list",
             "Highlight matching characters in search results",
             "Keyboard navigation (ArrowDown, ArrowUp, Enter, Escape)",
-            "Outside click detection to dismiss dropdown results"
+            "Outside click detection to dismiss dropdown results",
+            "Cache search query results locally to minimize API requests"
           ]
         };
       default:

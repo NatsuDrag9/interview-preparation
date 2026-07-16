@@ -10,7 +10,6 @@ export default function App() {
   return (
     <div className="app-container">
       {/* Sidebar navigation */}
-      Hello
       <Sidebar
         activeComponent={activeComponent}
         onSelectComponent={setActiveComponent}
