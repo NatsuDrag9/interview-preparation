@@ -1,0 +1,14 @@
+<div class="acs__container">
+    <h3 class="acs__title">Autocomplete Search Bar</h3>
+    <div class="acs__input-wrapper">
+        <input type="text" placeholder="Search recipes..." [value]="searchValue" (input)="onInputChange($event)" (focus)="onFocus()" (blur)="onBlur()" (keydown)="handleKeyDown($event)" class="acs__input" />
+
+        @if(showResults && results.length > 0) {
+            <div class="acs__dropdown-container">
+                @for(item of results; track item.id; let i = $index) {
+                    <span class="acs__option" [innerHTML]="highlightMatch(item.name, searchValue)" (mousedown)="selectItem(item.name)"></span>
+                }
+            </div>
+        }
+    </div>
+</div>

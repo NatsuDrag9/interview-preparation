@@ -1,0 +1,24 @@
+<aside class="app-sidebar">
+  <div class="sidebar-brand" (click)="onSelect('welcome')">
+    <div class="brand-text">
+      <h2>System Sandbox</h2>
+      <span>Machine Coding</span>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul class="nav-list">
+      <li *ngFor="let item of menuItems" class="nav-item">
+        <button
+          type="button"
+          class="nav-link"
+          [class.active]="activeComponent === item.key"
+          (click)="onSelect(item.key)"
+        >
+          <span class="nav-label">{{item.label}}</span>
+          <span *ngIf="activeComponent === item.key" class="active-indicator"></span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</aside>

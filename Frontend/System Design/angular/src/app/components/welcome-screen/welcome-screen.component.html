@@ -1,0 +1,20 @@
+<div class="welcome-container">
+  <div class="welcome-header">
+    <h1 class="welcome-title">System Design Sandbox</h1>
+    <p class="welcome-subtitle">
+      Welcome to the Angular Machine Coding practice sandbox. Select a component from the sidebar or click one of the modules below to start exploring the implementation.
+    </p>
+  </div>
+
+  <div class="welcome-grid">
+    <div *ngFor="let card of cards" class="welcome-card">
+      <h3 class="card-title">{{card.title}}</h3>
+      <p class="card-desc">{{card.desc}}</p>
+      <button type="button" (click)="onSelect(card.key)" class="card-action-btn">Launch Demo &rarr;</button>
+    </div>
+  </div>
+  
+  <div class="welcome-footer">
+    <p>Interactive playground designed to master UI components and machine coding interviews.</p>
+  </div>
+</div>

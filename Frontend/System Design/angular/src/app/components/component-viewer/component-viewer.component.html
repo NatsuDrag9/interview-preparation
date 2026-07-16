@@ -1,0 +1,31 @@
+<div *ngIf="componentInfo" class="viewer-container">
+  <div class="viewer-header">
+    <div class="viewer-title-row">
+      <h2 class="viewer-title">{{componentInfo.title}}</h2>
+      <div class="badge-row">
+        <span class="badge difficulty">Difficulty: {{componentInfo.difficulty}}</span>
+        <span class="badge status">{{componentInfo.status}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="viewer-layout">
+    <!-- Component Sandbox Canvas -->
+    <div class="viewer-canvas">
+      <div class="canvas-body">
+        <app-image-carousel *ngIf="activeComponent === 'carousel'" [images]="SAMPLE_IMAGES" [autoplayInterval]="4000"></app-image-carousel>
+        <app-autocomplete-search *ngIf="activeComponent === 'autocomplete'"></app-autocomplete-search>
+      </div>
+    </div>
+
+    <!-- Component Requirements & Details -->
+    <div class="viewer-details-card">
+      <h3>Key Features & Requirements</h3>
+      <ul class="requirements-list">
+        <li *ngFor="let req of componentInfo.requirements">
+          <span class="req-text">- {{req}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
