@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./ImageCarousel.css";
+import "./ImageCarousel.scss";
 
 function ImageCarousel({ images = [], autoplayInterval = 3000 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
