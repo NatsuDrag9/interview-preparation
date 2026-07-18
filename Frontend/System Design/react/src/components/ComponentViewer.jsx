@@ -1,6 +1,7 @@
 import React from "react";
 import ImageCarousel from "./ImageCarousel/ImageCarousel";
 import AutocompleteSearch from "./autocomplete-search/AutocompleteSearch";
+import OtpInput from "./OtpInput/OtpInput";
 
 const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=500&fit=crop",
@@ -41,6 +42,17 @@ export default function ComponentViewer({ activeComponent }) {
             "Cache search query results locally to minimize API requests"
           ]
         };
+      case "otpInput":
+        return {
+          title: "OTP Input",
+          difficulty: "Medium - Hard",
+          status: "Interactive Demo",
+          requirements: [
+            "Render a list of OTP input fields",
+            "Input validation",
+            "Keyboard navigation (ArrowDown, ArrowUp, Enter, Escape)",
+          ]
+        };
       default:
         return null;
     }
@@ -73,6 +85,9 @@ export default function ComponentViewer({ activeComponent }) {
             )}
             {activeComponent === "autocomplete" && (
               <AutocompleteSearch />
+            )}
+            {activeComponent === "otpInput" && (
+              <OtpInput />
             )}
           </div>
         </div>
