@@ -1,0 +1,16 @@
+<div class="otp-container">
+   @for (val of otpArray; track $index; let index = $index) {
+      <input
+        #otpField
+        type="text"
+        maxLength="1"
+        [value]="val"
+        (input)="onInputChange($event, index)"
+        (keydown)="handleKeyDown($event, index)"
+        class="otp-box"
+        autocomplete="one-time-code"
+        inputmode="numeric"
+        pattern="[0-9]*"
+      />
+    }
+</div>

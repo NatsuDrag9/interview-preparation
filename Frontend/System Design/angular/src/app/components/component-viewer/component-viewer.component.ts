@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageCarouselComponent } from '../image-carousel/image-carousel.template';
 import { AutocompleteSearch } from '../autocomplete-search/autocomplete-search.component';
+import { OtpInput } from '../otp-input/otp-input.component';
 
 interface ComponentInfo {
   title: string;
@@ -13,7 +14,7 @@ interface ComponentInfo {
 @Component({
   selector: 'app-component-viewer',
   standalone: true,
-  imports: [CommonModule, ImageCarouselComponent, AutocompleteSearch],
+  imports: [CommonModule, ImageCarouselComponent, AutocompleteSearch, OtpInput],
   templateUrl: './component-viewer.component.html',
   styleUrls: ['./component-viewer.component.css']
 })
@@ -54,6 +55,19 @@ export class ComponentViewerComponent {
             "Keyboard navigation (ArrowDown, ArrowUp, Enter, Escape)",
             "Outside click detection to dismiss dropdown results",
             "Cache search query results locally to minimize API requests"
+          ]
+        };
+      case 'otp-input':
+        return {
+          title: 'OTP Input',
+          difficulty: 'Easy - Medium',
+          status: 'Interactive Demo',
+          requirements: [
+            "Render configurable number of input fields (typically 4 or 6)",
+            "Support auto-focus on load, and auto-focus next on input",
+            "Handle backspace/delete to move focus to the previous input",
+            "Allow pasting full OTP code across fields",
+            "Ensure numeric-only validation if configured"
           ]
         };
       default:

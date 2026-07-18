@@ -21,6 +21,11 @@ export class WelcomeScreenComponent {
       key: 'autocomplete',
       title: 'Autocomplete Search',
       desc: 'A search-as-you-type autocomplete input component featuring matched text highlighting, dropdown suggestions, and keyboard arrow key navigation.'
+    },
+    {
+      key: 'otp-input',
+      title: 'OTP Input',
+      desc: 'A highly functional one-time password (OTP) input component with configurable fields, automatic focus movement, backspace navigation, and pasting support.'
     }
   ];
 

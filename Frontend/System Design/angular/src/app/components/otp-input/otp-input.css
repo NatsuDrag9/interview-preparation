@@ -1,0 +1,35 @@
+.otp-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.otp-fields {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.otp-box {
+  width: 48px;
+  height: 56px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  outline: none;
+  background-color: #f8f9fa;
+  transition: all 0.2s ease-in-out;
+  color: #212529;
+}
+
+.otp-box:focus {
+  border-color: #007bff;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+  transform: translateY(-2px);
+}

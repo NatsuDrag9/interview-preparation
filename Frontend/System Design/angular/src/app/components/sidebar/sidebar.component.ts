@@ -15,7 +15,8 @@ export class SidebarComponent {
   menuItems = [
     { key: 'welcome', label: 'Dashboard Home' },
     { key: 'carousel', label: 'Image Carousel' },
-    { key: 'autocomplete', label: 'Autocomplete Search' }
+    { key: 'autocomplete', label: 'Autocomplete Search' },
+    { key: 'otp-input', label: 'OTP Input' }
   ];
 
   onSelect(key: string) {

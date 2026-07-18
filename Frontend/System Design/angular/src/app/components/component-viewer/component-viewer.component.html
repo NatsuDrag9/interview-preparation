@@ -15,6 +15,7 @@
       <div class="canvas-body">
         <app-image-carousel *ngIf="activeComponent === 'carousel'" [images]="SAMPLE_IMAGES" [autoplayInterval]="4000"></app-image-carousel>
         <app-autocomplete-search *ngIf="activeComponent === 'autocomplete'"></app-autocomplete-search>
+        <otp-input *ngIf="activeComponent === 'otp-input'"></otp-input>
       </div>
     </div>
 
