@@ -5,12 +5,16 @@ export default function Sidebar({ activeComponent, onSelectComponent }) {
     { key: "welcome", label: "Dashboard Home" },
     { key: "carousel", label: "Image Carousel" },
     { key: "autocomplete", label: "Autocomplete Search" },
-    { key: "otpInput", label: "OTP Input" }
+    { key: "otpInput", label: "OTP Input" },
+    { key: "trafficSignal", label: "Traffic Signal" },
   ];
 
   return (
     <aside className="app-sidebar">
-      <div className="sidebar-brand" onClick={() => onSelectComponent("welcome")}>
+      <div
+        className="sidebar-brand"
+        onClick={() => onSelectComponent("welcome")}
+      >
         <div className="brand-text">
           <h2>React Sandbox</h2>
           <span>Machine Coding</span>

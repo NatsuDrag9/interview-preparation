@@ -2,6 +2,7 @@ import React from "react";
 import ImageCarousel from "./ImageCarousel/ImageCarousel";
 import AutocompleteSearch from "./autocomplete-search/AutocompleteSearch";
 import OtpInput from "./OtpInput/OtpInput";
+import TrafficSignal from "./TrafficSignal/TrafficSignal";
 
 const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=500&fit=crop",
@@ -25,8 +26,8 @@ export default function ComponentViewer({ activeComponent }) {
             "Autoplay with configurable interval speed",
             "Left and right navigation buttons",
             "Indicator dots for quick navigation",
-            "Smooth transition opacity animations"
-          ]
+            "Smooth transition opacity animations",
+          ],
         };
       case "autocomplete":
         return {
@@ -39,8 +40,8 @@ export default function ComponentViewer({ activeComponent }) {
             "Highlight matching characters in search results",
             "Keyboard navigation (ArrowDown, ArrowUp, Enter, Escape)",
             "Outside click detection to dismiss dropdown results",
-            "Cache search query results locally to minimize API requests"
-          ]
+            "Cache search query results locally to minimize API requests",
+          ],
         };
       case "otpInput":
         return {
@@ -51,7 +52,19 @@ export default function ComponentViewer({ activeComponent }) {
             "Render a list of OTP input fields",
             "Input validation",
             "Keyboard navigation (ArrowDown, ArrowUp, Enter, Escape)",
-          ]
+          ],
+        };
+      case "trafficSignal":
+        return {
+          title: "Traffic Signal",
+          difficulty: "Easy",
+          status: "Interactive Demo",
+          requirements: [
+            "Build a traffic light where the lights switch from green to yellow to red after predetermined intervals and loop indefinitely.",
+            "Red light: 4000ms",
+            "Yellow light: 500ms",
+            "Green light: 2000ms",
+          ],
         };
       default:
         return null;
@@ -72,7 +85,8 @@ export default function ComponentViewer({ activeComponent }) {
           </div>
         </div>
         <p className="viewer-subtitle">
-          See the live demo below. You can interact with the component to test its behavior and states.
+          See the live demo below. You can interact with the component to test
+          its behavior and states.
         </p>
       </div>
 
@@ -83,12 +97,9 @@ export default function ComponentViewer({ activeComponent }) {
             {activeComponent === "carousel" && (
               <ImageCarousel images={SAMPLE_IMAGES} autoplayInterval={4000} />
             )}
-            {activeComponent === "autocomplete" && (
-              <AutocompleteSearch />
-            )}
-            {activeComponent === "otpInput" && (
-              <OtpInput />
-            )}
+            {activeComponent === "autocomplete" && <AutocompleteSearch />}
+            {activeComponent === "otpInput" && <OtpInput />}
+            {activeComponent === "trafficSignal" && <TrafficSignal />}
           </div>
         </div>
 
