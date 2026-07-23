@@ -8,6 +8,7 @@ export default function Sidebar({ activeComponent, onSelectComponent }) {
     { key: "otpInput", label: "OTP Input" },
     { key: "trafficSignal", label: "Traffic Signal" },
     { key: "memoryGame", label: "Memory Game" },
+    { key: "todoList", label: "Todo List" },
   ];
 
   return (

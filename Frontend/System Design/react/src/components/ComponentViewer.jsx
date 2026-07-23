@@ -4,6 +4,7 @@ import AutocompleteSearch from "./autocomplete-search/AutocompleteSearch";
 import OtpInput from "./OtpInput/OtpInput";
 import TrafficSignal from "./TrafficSignal/TrafficSignal";
 import MemoryGame from "./MemoryGame/MemoryGame";
+import TodoList from "./TodoList/TodoList";
 
 const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=500&fit=crop",
@@ -61,7 +62,7 @@ export default function ComponentViewer({ activeComponent }) {
           difficulty: "Easy",
           status: "Interactive Demo",
           requirements: [
-            "Build a traffic light where the lights switch from green to yellow to red after predetermined intervals and loop indefinitely.",
+            "Build a traffic light where the lights switch from green to red to yellow after predetermined intervals and loop indefinitely.",
             "Red light: 4000ms",
             "Yellow light: 500ms",
             "Green light: 2000ms",
@@ -73,6 +74,25 @@ export default function ComponentViewer({ activeComponent }) {
           difficulty: "Hard",
           status: "Interactive Demo",
           requirements: ["Implement the Memory Game"],
+        };
+      case "todoList":
+        return {
+          title: "Todo List",
+          difficulty: "Easy - Medium",
+          status: "Interactive Demo",
+          requirements: [
+            "Build a Todo List component where users can:",
+            "Add a todo item",
+            "Mark a todo as completed",
+            "Delete a todo item",
+            "View the list of all todos",
+            "Component shold maintain a list of todos in its state",
+            "A todo has: id, text, and completed(boolean)",
+            "An input box with placeholder 'Enter todo' to type a new todo item",
+            "A button labelled 'Add' to add a todo",
+            "Each todo should have a delete button labelled 'Delete' to delete a todo",
+            "Completed todos should appear with a strikethrough style",
+          ],
         };
       default:
         return null;
@@ -109,6 +129,7 @@ export default function ComponentViewer({ activeComponent }) {
             {activeComponent === "otpInput" && <OtpInput />}
             {activeComponent === "trafficSignal" && <TrafficSignal />}
             {activeComponent === "memoryGame" && <MemoryGame />}
+            {activeComponent === "todoList" && <TodoList />}
           </div>
         </div>
 
