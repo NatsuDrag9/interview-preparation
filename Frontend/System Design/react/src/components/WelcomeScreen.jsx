@@ -26,6 +26,12 @@ export default function WelcomeScreen({ onSelectComponent }) {
       desc: "A traffic signal component displaying red, yellow and green lights",
       color: "linear-gradient(135deg, #4E4376 0%, #2B5876 100%)",
     },
+    {
+      key: "memoryGame",
+      title: "Memory Game",
+      desc: "A memory game that asks users to select all matching pairs",
+      color: "linear-gradient(135deg, #4E4376 0%, #2B5876 100%)",
+    },
   ];
 
   return (

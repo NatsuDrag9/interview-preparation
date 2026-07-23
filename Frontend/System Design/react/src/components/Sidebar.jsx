@@ -7,6 +7,7 @@ export default function Sidebar({ activeComponent, onSelectComponent }) {
     { key: "autocomplete", label: "Autocomplete Search" },
     { key: "otpInput", label: "OTP Input" },
     { key: "trafficSignal", label: "Traffic Signal" },
+    { key: "memoryGame", label: "Memory Game" },
   ];
 
   return (

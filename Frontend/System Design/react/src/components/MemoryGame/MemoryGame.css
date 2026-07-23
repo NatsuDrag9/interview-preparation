@@ -1,0 +1,47 @@
+.mg {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: start;
+  align-items: center;
+}
+
+.mg__top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.mg__grid {
+  display: grid;
+  grid-auto-rows: minmax(60px, auto);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  align-self: center;
+  height: auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 5px;
+  transition: transform 0.3s ease-out;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 2px 2px gray;
+    transform: scale(1.05);
+  }
+}
+
+.message {
+  font-size: 14px;
+  font-size: medium;
+  text-transform: capitalize;
+}

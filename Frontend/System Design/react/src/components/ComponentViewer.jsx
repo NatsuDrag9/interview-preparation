@@ -3,6 +3,7 @@ import ImageCarousel from "./ImageCarousel/ImageCarousel";
 import AutocompleteSearch from "./autocomplete-search/AutocompleteSearch";
 import OtpInput from "./OtpInput/OtpInput";
 import TrafficSignal from "./TrafficSignal/TrafficSignal";
+import MemoryGame from "./MemoryGame/MemoryGame";
 
 const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=500&fit=crop",
@@ -66,6 +67,13 @@ export default function ComponentViewer({ activeComponent }) {
             "Green light: 2000ms",
           ],
         };
+      case "memoryGame":
+        return {
+          title: "Memory Game",
+          difficulty: "Hard",
+          status: "Interactive Demo",
+          requirements: ["Implement the Memory Game"],
+        };
       default:
         return null;
     }
@@ -100,6 +108,7 @@ export default function ComponentViewer({ activeComponent }) {
             {activeComponent === "autocomplete" && <AutocompleteSearch />}
             {activeComponent === "otpInput" && <OtpInput />}
             {activeComponent === "trafficSignal" && <TrafficSignal />}
+            {activeComponent === "memoryGame" && <MemoryGame />}
           </div>
         </div>
 
