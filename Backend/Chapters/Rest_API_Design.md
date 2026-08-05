@@ -65,7 +65,8 @@ In this context, it doesn't matter how many times the client performs a particul
 For eg:
 
 - GET - Fetches the same resources regardless of how many times the API is called
-- PUT, PATCH requests are idempotent - For any update operation (PATCH, PUT), idempotency is maintained for every API call with same body
+- PUT requests are idempotent - Idempotency is maintained for every API call with same body as PUT replaces the entire record
+- PATCH requests are **not** idempotent inherently as it just updates the fields mentioned in the body. It is idempotent only when all instructions in the request body perform absolute assignments (replacements) rather than relative updates (like asking the server to perform "add" operation on inputs it passes on)
 - DELETE - In first API call DELETE id = 1 deletes a record with id = 1. Subsequent API calls, server sends 404 error if client tries to delete id = 1 regardless of how many times the DELETE/1/ request is made
 - POST requests are not idempotent - Each API calls always create a new record with a different id despite having same body
 
